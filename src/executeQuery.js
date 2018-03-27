@@ -63,6 +63,9 @@ function processQuery (feature, query, options, i) {
   const params = Query.params([feature], options)
   const result = sql(query, params)[0]
 
+  // Remove geometry if option
+  if (options.returnGeometry === false) delete result.geometry
+
   if (result && options.toEsri) return esriFy(result, options, i)
   else return result
 }
